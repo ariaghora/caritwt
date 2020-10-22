@@ -43,12 +43,16 @@
 
 <script>
     function fetchData() {
+        var table = document.getElementById('tweet-list');
         var keyword = document.getElementById('query').value;
+
+        table.innerHTML = "Memproses...";
         console.log(keyword)
         axios.get(`search.php?q=${keyword}&u=codingfess`)
             .then(function (res) {
                 var data = res.data;
-                var table = document.getElementById('tweet-list');
+
+                table.innerHTML = "";
 
                 data.forEach(element => {
                     var row = table.insertRow(0);
