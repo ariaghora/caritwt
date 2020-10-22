@@ -19,7 +19,7 @@
 
                 <div style="margin-top: 20px;">
                     <input type="text" id="query" placeholder="Kata kunci">
-                    <input type="button" value="Cari" class="primary">
+                    <input type="button" value="Cari" class="primary" id="btn-cari" onclick="fetchData()">
                 </div>
             </center>
         </section>
@@ -42,30 +42,23 @@
 </body>
 
 <script>
-    axios.get('search.php')
-        .then(function (res) {
-            var data = res.data;
-            var table = document.getElementById('tweet-list');
-            // tbody.innerText='asd'
+    function fetchData() {
+        var keyword = document.getElementById('query').value;
+        console.log(keyword)
+        axios.get(`search.php?q=${keyword}&u=codingfess`)
+            .then(function (res) {
+                var data = res.data;
+                var table = document.getElementById('tweet-list');
 
-            data.forEach(element => {
-                var row = table.insertRow(0);
-                var cell1 = row.insertCell(0);
-                var cell2 = row.insertCell(1);
-                cell1.innerHTML = element.text;
-                cell2.innerHTML = element.date;
-            });
-        })
+                data.forEach(element => {
+                    var row = table.insertRow(0);
+                    var cell1 = row.insertCell(0);
+                    var cell2 = row.insertCell(1);
+                    cell1.innerHTML = element.text;
+                    cell2.innerHTML = element.date;
+                });
+            })
+    }
 </script>
-
-<style>
-    table {
-        /* table-layout: fixed!important; */
-    }
-
-    td {
-        /* word-wrap: break-word!important; */
-    }
-</style>
 
 </html>

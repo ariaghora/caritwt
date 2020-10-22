@@ -1,6 +1,8 @@
 <?php 
-
-$raw = file_get_contents("http://mobile.twitter.com/search?q=data%20science%20from%3Acollegemenfess");
+$sub_query = $_GET["q"];
+$user = $_GET["u"];
+$query = urlencode("{$sub_query} from:{$user}");
+$raw = file_get_contents("http://mobile.twitter.com/search?q={$query}");
 
 $dom = new DOMDocument();
 $dom->loadHTML($raw);
