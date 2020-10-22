@@ -4,36 +4,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://unpkg.com/mvp.css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <title>Cari apa</title>
 </head>
 
 <body>
+    <div class="container">
+        <section style="margin-top: 40px;">
+            <center>
+                <img src="https://twitter-avatar.now.sh/codingfess" alt="" width="64px" style="border-radius: 50%;">
+                <p>Cari tweet di <a href="#">@codingfess</a></p>
 
-    <section>
-        <h3>??</h3>
-    </section>
-
-    <section>
-        <section>
-            <div>
-                <center>
-                    <img src="https://twitter-avatar.now.sh/codingfess" alt="" width="128px"
-                        style="border-radius: 50%;">
-
-                    <h2>Iya?</h2>
-                    <input type="text" id="query">
-                    <a href="#"><b>Cari</b></a>
-                </center>
-            </div>
+                <div style="margin-top: 20px;">
+                    <input type="text" id="query" placeholder="Kata kunci">
+                    <input type="button" value="Cari" class="primary">
+                </div>
+            </center>
         </section>
-    </section>
+
+        <section>
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Tweet</th>
+                        <th>Tanggal</th>
+                    </tr>
+                </thead>
+                <tbody id="tweet-list">
+
+                </tbody>
+            </table>
+        </section>
+    </div>
+
 </body>
 
 <script>
+    axios.get('search.php')
+        .then(function (res) {
+            var data = res.data;
+            var table = document.getElementById('tweet-list');
+            // tbody.innerText='asd'
 
+            data.forEach(element => {
+                var row = table.insertRow(0);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.innerHTML = element.text;
+                cell2.innerHTML = element.date;
+            });
+        })
 </script>
+
+<style>
+    table {
+        /* table-layout: fixed!important; */
+    }
+
+    td {
+        /* word-wrap: break-word!important; */
+    }
+</style>
 
 </html>
